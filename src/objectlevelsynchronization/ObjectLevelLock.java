@@ -4,18 +4,28 @@ package objectlevelsynchronization;
 public class ObjectLevelLock {
 
 //	
-    public synchronized void printMessage(String threadName) {
-    	
-        System.out.println(threadName + " acquired CUURENT-OBJECT lock");
+	
+	
+	public synchronized void printMessage(String threadName) {
+		
+        System.out.println(threadName + " acquired CURRENT-OBJECT lock on object having hashCode: " + thisHash());
         
         try {
         	
-            Thread.sleep(1000); // simulate work
+            Thread.sleep(5000); // simulate work
             
         } catch (InterruptedException e) {
         	
-            e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
-        System.out.println(threadName + " releasing CURRENT-OBJECT lock");
+        
+        System.out.println(threadName + " releasing CURRENT-OBJECT lock on object having hashCode: " + thisHash());
+    }
+
+	
+    private String thisHash() {
+    	
+        return "Object@" + Integer.toHexString(System.identityHashCode(this));
+        
     }
 }

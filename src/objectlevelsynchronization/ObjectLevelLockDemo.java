@@ -7,10 +7,10 @@ public class ObjectLevelLockDemo {
 //    	create an object of class ObjectLevelTask or In simple word create runnable
     	
     	
-        Runnable runnable1 = new ObjectLevelTask();
+//        Runnable runnable1 = new ObjectLevelTask();
         
         
-        Runnable runnable2 = new ObjectLevelTask();
+//        Runnable runnable2 = new ObjectLevelTask();
         
 		/* Note - Every object has its own lock. so obj1 and obj2 has different lock.
 		 * 
@@ -19,15 +19,15 @@ public class ObjectLevelLockDemo {
 		 *  
 		 *  */
 
-        Thread t1 = new Thread(runnable1);
+//        Thread t1 = new Thread(runnable1);
         
         
-        Thread t2 = new Thread(runnable2);
+//        Thread t2 = new Thread(runnable2);
 
         // Since obj1 and obj2 are different objects, both threads run parallel.
-        t1.start();
+//        t1.start();
         
-        t2.start();;
+//        t2.start();
         
 		/* output -
 		 * 
@@ -44,5 +44,62 @@ public class ObjectLevelLockDemo {
 		 * 
 		 * 
 		 */
+    	
+    	
+    	
+    	// Create TWO separate instance of type "ObjectLevelLock" -> synchronized method is defined in this class.
+//    	   These two separate object have different lock so two different threads can acquire lock of these two object
+//    	And can execute the codes inside synchronized parallely.
+//    	In another word, in case of object level synchronization two threads say t1 and t2 can acquire object lock of two different object say o1 and o1 and run synchronized method parallely
+//    	so they are not blocking to each other. 
+//    	But thread t2 has to wait if he want to acquire lock of an object which is current held by another thread
+    	
+		/* We have two object lock1, lock2 of type ObjectLevelLock 
+		 * Also we have two threads t1 and t2
+		 * 
+		 * 
+		 * */
+        ObjectLevelLock lock1 = new ObjectLevelLock();
+        ObjectLevelLock lock2 = new ObjectLevelLock();
+
+        
+//        new ObjectLevelTask(lock1, "Thread-1"), "T-1" -> This is nothing just a runnable object -> because ObjectLevelTask implements Runnable interface
+//        new ObjectLevelTask(lock2, "Thread-2"), "T-2" -> -> This is nothing just a runnable object -> because ObjectLevelTask implements Runnable interface
+        
+//        
+        Thread t1 = new Thread(new ObjectLevelTask(lock1, "Thread-1"), "T-1");
+        Thread t2 = new Thread(new ObjectLevelTask(lock2, "Thread-2"), "T-2");
+
+        t1.start();
+        t2.start();
+    	
+        
+		/*
+		 * output - 
+		 * 
+		 * Thread name: T-1 calling printMessage on object 6e17b62d Thread name: T-2
+		 * calling printMessage on object 953aa44 Thread-1 acquired CURRENT-OBJECT lock
+		 * on object having hashCode: Object@6e17b62d Thread-2 acquired CURRENT-OBJECT
+		 * lock on object having hashCode: Object@953aa44 Thread-2 releasing
+		 * CURRENT-OBJECT lock on object having hashCode: Object@953aa44 Thread-1
+		 * releasing CURRENT-OBJECT lock on object having hashCode: Object@6e17b62d
+		 * 
+		 */
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
     }
 }
