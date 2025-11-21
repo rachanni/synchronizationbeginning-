@@ -6,7 +6,7 @@ public class ObjectLevelLock {
 //	
 	
 	
-	public synchronized void printMessage(String threadName) {
+public synchronized void printMessage(String threadName) {
 		
         System.out.println(threadName + " acquired CURRENT-OBJECT lock on object having hashCode: " + thisHash());
         
@@ -28,4 +28,9 @@ public class ObjectLevelLock {
         return "Object@" + Integer.toHexString(System.identityHashCode(this));
         
     }
+
+	
+
+	
+    
 }
